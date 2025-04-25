@@ -1,32 +1,22 @@
 package com.pluralsight;
 
-import java.util.Scanner;
-
 public class Books {
-    private String name;
-    private int id;
-    private String isbn;
-    private boolean isCheckedOut;
-    private String checkedOutTo;
+     int id;
+     String isbn;
+     String title;
+     boolean isCheckedOut;
+     String checkedOutTo;
 
-    public Books(String name, int id, String isbn, boolean isCheckedOut, String checkedOutTo) {
-        this.name = name;
+    public Books(int id, String isbn, String title, boolean isCheckedOut, String checkedOutTo) {
         this.id = id;
         this.isbn = isbn;
+        this.title = title;
         this.isCheckedOut = isCheckedOut;
         this.checkedOutTo = checkedOutTo;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -34,15 +24,23 @@ public class Books {
     }
 
     public String getIsbn() {
-        return isbn;
+        return this.isbn;
     }
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public boolean isCheckedOut() {
-        return isCheckedOut;
+        return this.isCheckedOut;
     }
 
     public void setCheckedOut(boolean checkedOut) {
@@ -50,7 +48,7 @@ public class Books {
     }
 
     public String getCheckedOutTo() {
-        return checkedOutTo;
+        return this.checkedOutTo;
     }
 
     public void setCheckedOutTo(String checkedOutTo) {
@@ -58,7 +56,14 @@ public class Books {
     }
 
     @Override
-    public String toString() {
-        return "Books" + name + '\'' + id + isbn + '\'' + ", isCheckedOut=" + isCheckedOut + ", checkedOutTo='" + checkedOutTo + '\'';
+     public String toString() {
+         String status = IsCheckedOut() ? "Checked out to: " + getCheckedOutTo() : "Available";
+         return "Book ID: " + id + " | ISBN: " + isbn + " | Title: " + title + " | Status: " + status;
+     }
+
+    private boolean IsCheckedOut() {
+        return isCheckedOut;
     }
 }
+
+

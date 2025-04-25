@@ -1,21 +1,19 @@
 package com.pluralsight;
 
+import java.awt.print.Book;
 import java.util.Scanner;
 
-public class NeighborhoodLibrary {
-    private static Books[] books = new Books[20];
-    private static int numBooks = 5;
 
+
+public class NeighborhoodLibrary {
     public static void main(String[] args) {
-        books[0] = new Books("Jane Eyre", 50595, " 999777321", false, " .");
-        books[1] = new Books("Estimated", 52499, " 979865490",false, " ." );
-        books[2] = new Books("The Undocumented Americans", 52600, " 978039946", false, ". ");
-        books[3] = new Books("Atomic Habits", 52700, " 978073511", false, ".");
-        books[4] = new Books(" Modern American Women Writer", 52795, "002820259", false, ". ");
+        //Creating Library method
+        Books[] library = initializeInventory();
+        //System.out.println(library[2].title);
 
 
         Scanner menuScanner = new Scanner(System.in);
-        while(true){
+        while (true) {
 
             System.out.println("Welcome to the Library");
             System.out.println("Library Home Screen");
@@ -25,36 +23,67 @@ public class NeighborhoodLibrary {
             System.out.println("3. Quit");
             System.out.println("===========================================");
             System.out.println("Enter option");
+
             int enterOption = menuScanner.nextInt();
             menuScanner.nextLine();
 
 
-            switch(enterOption){
-                case 1:// coming back to this
-
+            switch (enterOption) {
+                case 1:
+                    showAvailableBooks(library);
                     break;
-                case 2://working on this
-
+                case 2:
+                    showCheckedOutBooks (library);
                     break;
-
                 case 3:
-                    System.out.println("Thanks for vising the library c!ome back soon");
-                    return;
+                    System.out.println("Thanks for vising the library come back soon");
+                    menuScanner.close();
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Try again");
             }
         }
 
-
-
-
-
     }
 
+    private static void showAvailableBooks(Books[] library) {
+        System.out.println("Available books ");
+        // Creating for loop to show array
+        for (Books value : library) {
+            if ((value != null) && !value.isCheckedOut()) {
+                System.out.println("ID: " + value.getId() + ", Title: " + value.getTitle());
+            }
+        }
+    }
+
+    private static void showCheckedOutBooks(Books[] library){
+        System.out.println("Available books ");
+        // Creating for loop to show array
+        for (Books value : library) {
+            if ((value != null) && value.isCheckedOut()) {
+                System.out.println("ID: " + value.getId() + ", Title: " + value.getTitle());
+            }
+        }
+    }
+
+    private static Books[] initializeInventory() {
+        Books[] inventory = new Books[5];
+        inventory[0] = new Books(1234, "97962181", "Estimated", false, ".");
+        inventory[1] = new Books(234, "97803996", "The Undocumented Americans ", false, " .");
+        inventory[2] = new Books(234, "97800208", "Modern American Women Writers", false, ".");
+        inventory[3] = new Books(1234, "978141975", "Parable of the Sower", true, " .");
+        inventory[4] = new Books(1234, "978141975", "Jane Eyre", false, " .");
+        return inventory;
+    }
+
+
+
+
+
+
+
+
+
+
 }
-
-
-
-
-
-
-
 
