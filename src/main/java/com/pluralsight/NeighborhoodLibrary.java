@@ -11,7 +11,6 @@ public class NeighborhoodLibrary {
         Books[] library = initializeInventory();
         //System.out.println(library[2].title);
 
-
         Scanner menuScanner = new Scanner(System.in);
         while (true) {
 
@@ -20,8 +19,7 @@ public class NeighborhoodLibrary {
             System.out.println("===========================================");
             System.out.println("1. Show available books");
             System.out.println("2. Show Checked-out Books");
-            System.out.println("3. check-in a book");
-            System.out.println("4. Quit");
+            System.out.println("3. Quit");
             System.out.println("===========================================");
             System.out.println("Enter option");
 
@@ -37,10 +35,6 @@ public class NeighborhoodLibrary {
                     showCheckedOutBooks (library);
                     break;
                 case 3:
-
-                    break;
-
-                case 4:
                     System.out.println("Thanks for vising the library come back soon");
                     menuScanner.close();
                     System.exit(0);
@@ -52,15 +46,16 @@ public class NeighborhoodLibrary {
     }
 
     private static void showAvailableBooks(Books[] library) {
-        System.out.println("Available books ");
+        System.out.println("Available books: ");
         // Creating for loop to show the list of available books
         for (Books value : library) {
             if ((value != null) && !value.isCheckedOut()) {
                 System.out.println("ID: " + value.getId() + " ISBN:" + value.getIsbn() + " Title: " + value.getTitle());
+
             }
         }
 
-        // Ask the user if they want to checkout a book
+        // Ask the user if they want to check-out a book
         System.out.println("Do you want to checkout a book? Type Y for yes and N to return to the main menu");
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
@@ -75,26 +70,58 @@ public class NeighborhoodLibrary {
 
         } else if (userInput.equalsIgnoreCase("N")) {
             return;
-
-
         } else {
             System.out.println("Invalid Option!");
         }
     }
 
     private static void showCheckedOutBooks(Books[] library){
-        System.out.println("Available books ");
-        // Creating for loop to show array
-        for (Books value : library) {
-            if ((value != null) && value.isCheckedOut()) {
-                System.out.println("ID: " + value.getId() + ", Title: " + value.getTitle());
-//                System.out.println("Enter C to check in a book: ");
-//                System.out.println("Enter X to go back to home screen: ");
+        Scanner scanner = new Scanner(System.in);
+            Boolean anyCheckedOut = false;
+            for (Books value : library) {
+                if (value != null && value.isCheckedOut()) {
+                    System.out.println("ID: " + value.getId() + ", Title: " + value.getTitle() + ", Checked-out to: " + value.getCheckedOutTo());
+                    anyCheckedOut = true;
+                }
+            }
+            if (!anyCheckedOut) {
+                System.out.println("No books are currently checked out.");
+            }
 
+            // Now allow the user to press a key
+            System.out.println("\nPress 2 to check out a new book, or any other key to exit:");
+            String userInput = scanner.nextLine();
+            String checkOutBook = scanner.nextLine();
+            if (userInput.equalsIgnoreCase("2")) {
+                checkOutBook(library); // Call a new method to handle checking out
+            }
+
+//            System.out.println("Enter C to check in a book: ");
+//            String userInput2 = scanner.nextLine();
+//            if (userInput2.equalsIgnoreCase("C")){
+//               return;
+//
+//            }
+                //System.out.println("Enter X to go back to home screen: ");
+            System.out.println("\nEnter C to check in a book, or any other key to exit: ");
+            String userInput2 = scanner.nextLine();
+            if (userInput2.equalsIgnoreCase("C")) {
+                System.out.println("Enter the Tittle of the book you want to check in:");
+                String bookIdInput = scanner.nextLine();
+
+                // Find the book by ID and check it in
+                for (Books value1 : library) {
+                    if (value1 != null && value1.getTitle().equals(bookIdInput)) {
+                        value1.setCheckedOut(false); // Mark it as not checked out
+                        value1.setCheckedOutTo(null); // Clear the "checked out to" field
+                        System.out.println("Book '" + value1.getTitle() + "' has been successfully checked in!");
+                        return;
+                    }
+                }
+
+                System.out.println("No book found with that Tittle.");
             }
         }
-    }
-
     private static Books[] initializeInventory() {
         //System.out.println("Select a book to check out or exit back to the home screen");
         Books[] inventory = new Books[5];
@@ -106,12 +133,15 @@ public class NeighborhoodLibrary {
         return inventory;
     }
 
+
+}
+
+
+
 //    private static void checkInBook(Books[] library){
 //        Books
 
 
-
-    }
 
 
 
