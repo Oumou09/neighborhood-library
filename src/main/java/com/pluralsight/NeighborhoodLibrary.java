@@ -1,6 +1,5 @@
 package com.pluralsight;
 
-import java.awt.print.Book;
 import java.util.Scanner;
 
 
@@ -89,11 +88,10 @@ public class NeighborhoodLibrary {
             }
 
             // Now allow the user to press a key
-            System.out.println("\nPress 2 to check out a new book, or any other key to exit:");
+            System.out.println("\nPress V to check out a new book, or any other key to exit:");
             String userInput = scanner.nextLine();
-            String checkOutBook = scanner.nextLine();
-            if (userInput.equalsIgnoreCase("2")) {
-                checkOutBook(library); // Call a new method to handle checking out
+            if (userInput.equalsIgnoreCase("V")) {
+                showCheckedOutBooks(library); // Call a new method to handle checking out
             }
 
 //            System.out.println("Enter C to check in a book: ");
